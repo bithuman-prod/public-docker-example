@@ -41,6 +41,10 @@ docker compose up
 
 Wait for all services to start (first run takes a few minutes).
 
+**Docker Services Running:**
+
+![Docker Services Example](./assets/example-docker.jpg)
+
 ### 4. Access the App
 
 Open http://localhost:4202 in your browser.
