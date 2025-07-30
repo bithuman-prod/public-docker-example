@@ -12,6 +12,10 @@ A local deployment of bitHuman's AI visual agent with real-time conversation cap
 
 ### 1. Configure Environment
 
+**Get your bitHuman API Secret:**
+
+![Get API Key Example](./assets/example-get-api-key.jpg)
+
 Create a `.env` file:
 
 ```bash
