@@ -4,7 +4,7 @@ A local deployment of bitHuman's AI visual agent with real-time conversation cap
 
 ## What You Need
 
-- Docker and Docker Compose (For MacOS we recommend OrbStack)
+- Docker and Docker Compose (**For MacOS we strongly recommend [OrbStack](https://orbstack.dev/) for better performance and easier management**)
 - API keys: `BITHUMAN_API_SECRET` and `OPENAI_API_KEY`
 - `.imx` model files (place in `./models/` directory)
 
@@ -29,6 +29,10 @@ models/
 └── YourModel.imx
 ```
 
+**Download .imx models from bitHuman:**
+
+![Model Download Example](./assets/example-download.jpg)
+
 ### 3. Start Services
 
 ```bash
@@ -40,6 +44,10 @@ Wait for all services to start (first run takes a few minutes).
 ### 4. Access the App
 
 Open http://localhost:4202 in your browser.
+
+**App Interface:**
+
+![App Screenshot](./assets/example-screenshot.jpg)
 
 ## That's It!
 
