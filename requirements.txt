@@ -1,0 +1,3 @@
+python-dotenv
+bithuman==0.5.22
+livekit-agents[openai,silero,deepgram,cartesia,turn-detector,bithuman]==1.0.23

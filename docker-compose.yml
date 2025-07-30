@@ -1,0 +1,73 @@
+services:
+  # LiveKit server - Real-time communication server for WebRTC
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --config /etc/livekit.yaml
+    restart: always
+    ports:
+      - "17880:17880"     # WebSocket/HTTP API
+      - "17881:17881"     # TCP for signaling
+      - "50700-50720:50700-50720/udp" # UDP for media (WebRTC)
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml  # Mount LiveKit configuration
+    networks:
+      - livekit-network
+    depends_on:
+      - redis  # Redis required for LiveKit clustering/state
+
+  # AI Agent - Backend service handling conversation logic
+  agent:
+    build:
+      context: .  # Build from current directory
+      dockerfile: agent.dockerfile
+    entrypoint: ["python", "agent.py", "start"]
+    restart: always
+    environment:
+      # LiveKit connection settings
+      - LIVEKIT_URL=ws://livekit:17880  # Internal Docker network URL
+      - LIVEKIT_API_KEY=devkey  # Default dev key (change in production)
+      - LIVEKIT_API_SECRET=UPivas8PQvWiYhubkqxqfkY8kfB9TgGj
+      - IMX_MODEL_ROOT=/imx-models  # Path to mounted models
+    env_file:
+      - ./.env  # API keys (BITHUMAN_API_SECRET, OPENAI_API_KEY)
+    volumes:
+      - ./models:/imx-models  # Mount .imx models directory
+      - ./agent.py:/agent.py
+    networks:
+      - livekit-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Access host services
+    depends_on:
+     - livekit  # Wait for LiveKit to be ready
+
+  # Frontend - Web interface (LiveKit agents playground)
+  frontend:
+    build:
+      context: .
+      dockerfile: webui.dockerfile
+      args:
+        LIVEKIT_URL: ws://localhost:17880  # Public URL for browser access
+    restart: always
+    ports:
+      - "4202:4202"  # Map container port 3000 to host port 4202
+    environment:
+      - LIVEKIT_API_KEY=devkey  # API key for LiveKit connection
+      - LIVEKIT_API_SECRET=UPivas8PQvWiYhubkqxqfkY8kfB9TgGj
+      - PORT=4202  # Override Next.js default port
+    networks:
+      - livekit-network
+    depends_on:
+      - livekit  # Frontend needs LiveKit server
+
+  # Redis - Message broker for LiveKit clustering and state management
+  redis:
+    image: redis:alpine
+    restart: always
+    networks:
+      - livekit-network
+    # No external ports - only used internally by LiveKit
+
+# Docker network for service communication
+networks:
+  livekit-network:
+    driver: bridge  # Default Docker bridge network

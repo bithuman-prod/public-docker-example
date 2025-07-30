@@ -1,0 +1,14 @@
+port: 17880
+rtc:
+  tcp_port: 17881
+  port_range_start: 50700
+  port_range_end: 50720
+  use_external_ip: false
+
+log_level: info
+
+keys:
+  devkey: UPivas8PQvWiYhubkqxqfkY8kfB9TgGj
+  
+redis:
+  address: redis:6379
