@@ -1,10 +1,10 @@
-# Bithuman AI Voice Agent
+# bitHuman Visual Agent App powered by LiveKit
 
-A local deployment of Bithuman's AI voice agent with real-time conversation capabilities.
+A local deployment of bitHuman's AI visual agent with real-time conversation capabilities.
 
 ## What You Need
 
-- Docker and Docker Compose
+- Docker and Docker Compose (For MacOS we recommend OrbStack)
 - API keys: `BITHUMAN_API_SECRET` and `OPENAI_API_KEY`
 - `.imx` model files (place in `./models/` directory)
 
