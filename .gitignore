@@ -66,5 +66,5 @@ tmp/
 temp/
 
 # Models (uncomment if you want to ignore model files)
-# models/
-# *.imx 
+models/
+*.imx 
