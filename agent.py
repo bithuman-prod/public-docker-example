@@ -38,7 +38,7 @@ async def entrypoint(ctx: JobContext):
         model_path = valid_models[0]
         logger.info(f"using default model {model_path}")
 
-    logger.info("staring bithuman runtime")
+    logger.info("starting bithuman runtime")
     bithuman_avatar = bithuman.AvatarSession(
         model_path=str(model_path),
         api_secret=os.getenv("BITHUMAN_API_SECRET"),
